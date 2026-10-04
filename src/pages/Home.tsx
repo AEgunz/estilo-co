@@ -81,12 +81,12 @@ export default function Home() {
           <img src="/watch_design_gold.png" alt="ساعة الحية الذهبية" />
         </div>
         <div className="spine">
-          {["٠١","٠٢","٠٣","٠٤","٠٥","٠٦","٠٧","٠٨"].map((n) => (
+          {["01","02","03","04","05","06","07","08"].map((n) => (
             <span key={n}>{n}</span>
           ))}
         </div>
         <div className="content">
-          <span className="eyebrow">جديد ٢٠٢٦</span>
+          <span className="eyebrow">جديد 2026</span>
           <h1>ساعة الحية…<br />الأناقة اللي كتلوى على المعصم ديالك</h1>
           <p>ساعة نسائية بتصميم الثعبان الفاخر، مرصّعة بالكريستال، متوفرة بثلاثة ألوان: الذهبي، الروز غولد والفضي. كوارتز ياباني أصلي.</p>
           <div className="cta-row">
@@ -114,7 +114,7 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head">
             <h2>التشكيلة كاملة</h2>
-            <span className="num">٠١ / ٠٤</span>
+            <span className="num">01 / 04</span>
           </div>
           <div className="gallery">
             <div className="g-item"><img src="/watch-rosegold.jpg" alt="روز غولد" /><span className="g-tag">روز غولد</span></div>
@@ -130,21 +130,21 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head">
             <h2>علاش غادي تعجبك؟</h2>
-            <span className="num">٠٢ / ٠٤</span>
+            <span className="num">02 / 04</span>
           </div>
           <div className="feats">
             <div className="feat">
-              <div className="f-num">٠١</div>
+              <div className="f-num">01</div>
               <h3>تصميم الثعبان الأيقوني</h3>
               <p>سوار مرن كيلتف على المعصم بلا مشبك، شكل فاخر مستوحى من أرقى دور المجوهرات العالمية.</p>
             </div>
             <div className="feat">
-              <div className="f-num">٠٢</div>
+              <div className="f-num">02</div>
               <h3>ترصيع بالكريستال</h3>
               <p>إطار الميناء مرصّع بأحجار كريستالية لامعة كتزيد الساعة بريق ولمعة فأي مناسبة.</p>
             </div>
             <div className="feat">
-              <div className="f-num">٠٣</div>
+              <div className="f-num">03</div>
               <h3>ميناء عرق اللؤلؤ</h3>
               <p>وجه الساعة من عرق اللؤلؤ الطبيعي بأرقام رومانية، مع موتور كوارتز ياباني دقيق وعمري.</p>
             </div>
@@ -157,12 +157,12 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head">
             <h2>عرض خاص محدود</h2>
-            <span className="num">٠٣ / ٠٤</span>
+            <span className="num">03 / 04</span>
           </div>
           <div className="offer">
             <div className="o-img"><img src="/watch-gold.jpg" alt="ساعة الحية الذهبية" /></div>
             <div>
-              <span className="badge">تخفيض ٤٠٪ — اليوم فقط</span>
+              <span className="badge">تخفيض 40% — اليوم فقط</span>
               <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 6 }}>
                 <div className="price-new">199 <small>درهم</small></div>
                 <div className="price-old">329 درهم</div>
@@ -260,7 +260,7 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head">
             <h2>آراء الناس فـ واتساب</h2>
-            <span className="num">٠٤ / ٠٤</span>
+            <span className="num">04 / 04</span>
           </div>
           <div className="phone">
             <div className="wa-header">
