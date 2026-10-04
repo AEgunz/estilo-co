@@ -3,9 +3,9 @@ import { trpc } from "@/providers/trpc";
 import "../landing.css";
 
 const PACKS = [
-  { qty: 1, price: 199, unit: "199 درهم / الوحدة", save: null as string | null },
-  { qty: 2, price: 349, unit: "174 درهم / الوحدة", save: "وفّر 49 درهم" },
-  { qty: 3, price: 447, unit: "149 درهم / الوحدة", save: "وفّر 150 درهم" },
+  { qty: 1, price: 249, unit: "249 درهم / الوحدة", save: null as string | null },
+  { qty: 2, price: 399, unit: "200 درهم / الوحدة", save: "وفّر 99 درهم" },
+  { qty: 3, price: 549, unit: "183 درهم / الوحدة", save: "وفّر 198 درهم" },
 ];
 
 const WATCH_COLORS = [
@@ -220,8 +220,8 @@ export default function Home() {
             <div>
               <span className="badge">تخفيض 40% — اليوم فقط</span>
               <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 6 }}>
-                <div className="price-new">199 <small>درهم</small></div>
-                <div className="price-old">329 درهم</div>
+                <div className="price-new">249 <small>درهم</small></div>
+                <div className="price-old">399 درهم</div>
               </div>
               <ul>
                 <li>الدفع عند الاستلام — ما كتخلص حتى توصلك الساعة ليديك</li>
