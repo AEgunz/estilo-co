@@ -121,7 +121,7 @@ export default function Home() {
       {/* HERO */}
       <div className="hero">
         <div className="bg">
-          <img src="/watch_design_gold.png" alt="ساعة الحية الذهبية" />
+          <img src="/watch_design_gold.jpg" alt="ساعة الحية الذهبية" fetchPriority="high" decoding="async" />
         </div>
         <div className="spine">
           {["01","02","03","04","05","06","07","08"].map((n) => (
@@ -160,9 +160,9 @@ export default function Home() {
             <span className="num">01 / 04</span>
           </div>
           <div className="gallery">
-            <div className="g-item"><img src="/watch-rosegold.jpg" alt="روز غولد" /><span className="g-tag">روز غولد</span></div>
-            <div className="g-item"><img src="/watch-gold.jpg" alt="ذهبي" /><span className="g-tag">ذهبي</span></div>
-            <div className="g-item"><img src="/watch-silver.jpg" alt="فضي" /><span className="g-tag">فضي</span></div>
+            <div className="g-item"><img src="/watch-rosegold.jpg" alt="روز غولد" loading="lazy" decoding="async" /><span className="g-tag">روز غولد</span></div>
+            <div className="g-item"><img src="/watch-gold.jpg" alt="ذهبي" loading="lazy" decoding="async" /><span className="g-tag">ذهبي</span></div>
+            <div className="g-item"><img src="/watch-silver.jpg" alt="فضي" loading="lazy" decoding="async" /><span className="g-tag">فضي</span></div>
           </div>
         </div>
       </section>
@@ -172,8 +172,10 @@ export default function Home() {
         <div className="wrap" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 20px" }}>
           <div style={{ borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
             <img
-              src="/watch-lifestyle.png"
+              src="/watch-lifestyle.jpg"
               alt="ساعة الحية النسائية - Estilo-Co"
+              loading="lazy"
+              decoding="async"
               style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}
             />
           </div>
@@ -215,7 +217,7 @@ export default function Home() {
             <span className="num">03 / 04</span>
           </div>
           <div className="offer">
-            <div className="o-img"><img src="/watch-gold.jpg" alt="ساعة الحية الذهبية" /></div>
+            <div className="o-img"><img src="/watch-gold.jpg" alt="ساعة الحية الذهبية" loading="lazy" decoding="async" /></div>
             <div>
               <span className="badge">تخفيض 40% — اليوم فقط</span>
               <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 6 }}>
@@ -349,6 +351,8 @@ export default function Home() {
                               <img
                                 src={c.img}
                                 alt={c.name}
+                                loading="lazy"
+                                decoding="async"
                                 style={{
                                   width: "100%",
                                   aspectRatio: "1/1",

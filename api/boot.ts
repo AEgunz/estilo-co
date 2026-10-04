@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
+import { compress } from "hono/compress";
 import { serve, type HttpBindings } from "@hono/node-server";
 import { serveStaticFiles } from "./lib/vite";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
@@ -9,6 +10,7 @@ import { env } from "./lib/env";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
+app.use(compress());
 app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({

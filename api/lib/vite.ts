@@ -47,7 +47,15 @@ export function serveStaticFiles(app: App) {
         const ext = path.extname(filePath).toLowerCase();
         const contentType = MIME_TYPES[ext] || "application/octet-stream";
         const content = fs.readFileSync(filePath);
-        return c.body(content, 200, { "Content-Type": contentType });
+
+        const cacheControl = ext === ".html"
+          ? "public, max-age=3600"
+          : "public, max-age=31536000, immutable";
+
+        return c.body(content, 200, {
+          "Content-Type": contentType,
+          "Cache-Control": cacheControl,
+        });
       }
     }
 
