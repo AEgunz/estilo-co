@@ -7,8 +7,6 @@ import path from "path";
 type App = Hono<{ Bindings: HttpBindings }>;
 
 export function serveStaticFiles(app: App) {
-  const distPath = path.resolve(import.meta.dirname, "../dist/public");
-
   app.use("*", serveStatic({ root: "./dist/public" }));
 
   app.notFound((c) => {
@@ -16,8 +14,26 @@ export function serveStaticFiles(app: App) {
     if (!accept.includes("text/html")) {
       return c.json({ error: "Not Found" }, 404);
     }
-    const indexPath = path.resolve(distPath, "index.html");
-    const content = fs.readFileSync(indexPath, "utf-8");
-    return c.html(content);
+
+    const candidates = [
+      path.resolve(process.cwd(), "dist/public/index.html"),
+      path.resolve(process.cwd(), "public/index.html"),
+      path.resolve(import.meta.dirname, "public/index.html"),
+      path.resolve(import.meta.dirname, "../dist/public/index.html"),
+    ];
+
+    for (const indexPath of candidates) {
+      try {
+        if (fs.existsSync(indexPath)) {
+          const content = fs.readFileSync(indexPath, "utf-8");
+          return c.html(content);
+        }
+      } catch (err) {
+        console.error("Error reading static index.html:", err);
+      }
+    }
+
+    return c.text("ESTILO-CO App running (index.html not found)", 404);
   });
 }
+
