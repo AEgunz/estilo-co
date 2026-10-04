@@ -91,7 +91,7 @@ export default function Home() {
           <p>ساعة نسائية بتصميم الثعبان الفاخر، مرصّعة بالكريستال، متوفرة بثلاثة ألوان: الذهبي، الروز غولد والفضي. كوارتز ياباني أصلي.</p>
           <div className="cta-row">
             <a className="btn btn-solid" href="#quickorder">
-              طلب سريع — الدفع عند الاستلام
+              اطلبي الآن
             </a>
             <a className="btn" href="#gallery">شوف التشكيلة</a>
           </div>
@@ -174,7 +174,7 @@ export default function Home() {
                 <li>إمكانية الاستبدال فـ 7 أيام إلا ما عجباتكش</li>
               </ul>
               <a className="btn btn-wa" href="#quickorder" style={{ background: "#000", borderColor: "#000" }}>
-                طلب سريع — الدفع عند الاستلام
+                اطلبي الآن
               </a>
             </div>
           </div>
@@ -296,7 +296,7 @@ export default function Home() {
         <h2>جاهزة تلبسيها؟</h2>
         <p>عمّر الفورم وصيفط الطلب ديالك، وحنا نتواصلو معاك ونوصّلوها ليك حتى لباب الدار.</p>
         <a className="btn btn-solid" href="#quickorder">
-          طلب سريع — الدفع عند الاستلام
+          اطلبي الآن
         </a>
       </div>
 
