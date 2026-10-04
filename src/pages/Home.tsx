@@ -163,7 +163,6 @@ export default function Home() {
             <div className="g-item"><img src="/watch-rosegold.jpg" alt="روز غولد" /><span className="g-tag">روز غولد</span></div>
             <div className="g-item"><img src="/watch-gold.jpg" alt="ذهبي" /><span className="g-tag">ذهبي</span></div>
             <div className="g-item"><img src="/watch-silver.jpg" alt="فضي" /><span className="g-tag">فضي</span></div>
-            <div className="g-item"><img src="/watch-side.jpg" alt="منظر جانبي" /><span className="g-tag">التفاصيل</span></div>
           </div>
         </div>
       </section>
