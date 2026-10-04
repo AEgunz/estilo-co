@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
-import type { HttpBindings } from "@hono/node-server";
+import { serve, type HttpBindings } from "@hono/node-server";
+import { serveStaticFiles } from "./lib/vite";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
@@ -25,8 +26,6 @@ const isDev = process.env.NODE_ENV === "development";
 
 if (!isDev) {
   try {
-    const { serve } = await import("@hono/node-server");
-    const { serveStaticFiles } = await import("./lib/vite");
     serveStaticFiles(app);
 
     const port = parseInt(process.env.PORT || "3000", 10);
