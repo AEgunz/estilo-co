@@ -78,7 +78,7 @@ export default function Home() {
       {/* HERO */}
       <div className="hero">
         <div className="bg">
-          <img src="/watch-rosegold.jpg" alt="ساعة الحية روز غولد" />
+          <img src="/watch_design_gold.png" alt="ساعة الحية الذهبية" />
         </div>
         <div className="spine">
           {["٠١","٠٢","٠٣","٠٤","٠٥","٠٦","٠٧","٠٨"].map((n) => (
