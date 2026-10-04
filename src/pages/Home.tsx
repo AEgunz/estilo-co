@@ -8,6 +8,12 @@ const PACKS = [
   { qty: 3, price: 447, unit: "149 درهم / الوحدة", save: "وفّر 150 درهم" },
 ];
 
+const WATCH_COLORS = [
+  { name: "روز غولد", img: "/watch-rosegold.jpg" },
+  { name: "ذهبي", img: "/watch-gold.jpg" },
+  { name: "فضي", img: "/watch-silver.jpg" },
+];
+
 const REVIEWS = [
   { who: "سلمى — كازا", color: "#9b30a8", text: "وصلاتني الساعة لبارح، صراحة أحسن من التصويرة بزاف! الكريستال كيلمع بزاف", stars: true, time: "21:14" },
   { who: "خديجة — الرباط", color: "#0b7a6f", text: "خديت الروز غولد، صحباتي كلهم سولوني فين شريتها 😍 التوصيل كان سريع، نهارين ووصلات", stars: false, time: "21:20" },
@@ -23,9 +29,45 @@ export default function Home() {
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
-  const [color, setColor] = useState("روز غولد");
+  const [itemColors, setItemColors] = useState<string[]>(["روز غولد"]);
   const [done, setDone] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setItemColors((prev) => {
+      const defaultColors = ["روز غولد", "ذهبي", "فضي"];
+      const newArray = [];
+      for (let i = 0; i < pack.qty; i++) {
+        newArray.push(prev[i] || defaultColors[i % defaultColors.length]);
+      }
+      return newArray;
+    });
+  }, [pack.qty]);
+
+  const updateWatchColor = (index: number, colorName: string) => {
+    setItemColors((prev) => {
+      const copy = [...prev];
+      copy[index] = colorName;
+      return copy;
+    });
+  };
+
+  const getSelectedColorSummary = () => {
+    if (pack.qty === 1) return itemColors[0] || "روز غولد";
+
+    const counts: Record<string, number> = {};
+    for (let i = 0; i < pack.qty; i++) {
+      const c = itemColors[i] || "روز غولد";
+      counts[c] = (counts[c] || 0) + 1;
+    }
+
+    const entries = Object.entries(counts);
+    if (entries.length === 1) {
+      return `${pack.qty} × ${entries[0][0]}`;
+    }
+
+    return itemColors.map((c, i) => `ساعة ${i + 1}: ${c}`).join(" | ");
+  };
 
   const createOrder = trpc.orders.create.useMutation({
     onSuccess: () => setDone(true),
@@ -53,12 +95,13 @@ export default function Home() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    const finalColor = getSelectedColorSummary();
     createOrder.mutate({
       name: name.trim(),
       phone: phone.trim(),
       city: city.trim(),
       address: address.trim(),
-      color,
+      color: finalColor,
       qty: pack.qty,
       total: pack.price,
     });
@@ -240,13 +283,98 @@ export default function Home() {
               <label htmlFor="faddr">العنوان الكامل *</label>
               <input id="faddr" type="text" placeholder="الحي، الزنقة، رقم الدار…" required value={address} onChange={(e) => setAddress(e.target.value)} />
 
-              <label htmlFor="fcolor">اللون</label>
-              <select id="fcolor" value={color} onChange={(e) => setColor(e.target.value)}>
-                <option>روز غولد</option>
-                <option>ذهبي</option>
-                <option>فضي</option>
-                <option>ميكس (فحال الطلبات ديال 2 ولا 3)</option>
-              </select>
+              <div className="color-selection-group" style={{ margin: "22px 0 10px" }}>
+                <label style={{ display: "block", fontWeight: 700, fontSize: 15, marginBottom: 12 }}>
+                  {pack.qty === 1 ? "اختر لون الساعة *" : `اختر ألوان الساعات (${pack.qty} ساعات) *`}
+                </label>
+
+                {Array.from({ length: pack.qty }).map((_, idx) => {
+                  const selectedColor = itemColors[idx] || "روز غولد";
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        marginBottom: pack.qty > 1 ? 16 : 0,
+                        background: pack.qty > 1 ? "#faf8f5" : "transparent",
+                        padding: pack.qty > 1 ? "14px 16px" : 0,
+                        borderRadius: 12,
+                        border: pack.qty > 1 ? "1px solid #e8e2dc" : "none"
+                      }}
+                    >
+                      {pack.qty > 1 && (
+                        <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 10, color: "#111", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span>الساعة رقم {idx + 1}</span>
+                          <span style={{ color: "#b0541e", fontSize: 13, fontWeight: 800 }}>{selectedColor}</span>
+                        </div>
+                      )}
+
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+                        {WATCH_COLORS.map((c) => {
+                          const isSelected = selectedColor === c.name;
+                          return (
+                            <button
+                              key={c.name}
+                              type="button"
+                              onClick={() => updateWatchColor(idx, c.name)}
+                              style={{
+                                border: isSelected ? "2px solid #000" : "1px solid #e2ddd6",
+                                borderRadius: 10,
+                                padding: "8px 6px",
+                                background: isSelected ? "#fff" : "#fcfbfa",
+                                cursor: "pointer",
+                                textAlign: "center",
+                                transition: "all 0.2s ease",
+                                boxShadow: isSelected ? "0 4px 14px rgba(0,0,0,0.12)" : "none",
+                                position: "relative",
+                                transform: isSelected ? "translateY(-1px)" : "none",
+                              }}
+                            >
+                              {isSelected && (
+                                <span style={{
+                                  position: "absolute",
+                                  top: 6,
+                                  right: 6,
+                                  background: "#000",
+                                  color: "#fff",
+                                  borderRadius: "50%",
+                                  width: 18,
+                                  height: 18,
+                                  fontSize: 11,
+                                  display: "grid",
+                                  placeItems: "center",
+                                  fontWeight: 800,
+                                }}>
+                                  ✓
+                                </span>
+                              )}
+                              <img
+                                src={c.img}
+                                alt={c.name}
+                                style={{
+                                  width: "100%",
+                                  aspectRatio: "1/1",
+                                  objectFit: "cover",
+                                  borderRadius: 7,
+                                  marginBottom: 6,
+                                  display: "block",
+                                }}
+                              />
+                              <span style={{
+                                fontSize: 13,
+                                fontWeight: isSelected ? 800 : 500,
+                                color: isSelected ? "#000" : "#555",
+                                display: "block",
+                              }}>
+                                {c.name}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
               <div className="q-total">
                 <span>المجموع (توصيل مجاني)</span>
