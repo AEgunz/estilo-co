@@ -125,6 +125,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BANNER IMAGE */}
+      <section className="banner-section" style={{ padding: "40px 0 20px", background: "#f8f6f3" }}>
+        <div className="wrap" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 20px" }}>
+          <div style={{ borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
+            <img
+              src="/watch-lifestyle.png"
+              alt="ساعة الحية النسائية - Estilo-Co"
+              style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* FEATURES */}
       <section className="dark">
         <div className="wrap">
