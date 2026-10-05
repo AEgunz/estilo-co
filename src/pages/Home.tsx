@@ -70,7 +70,15 @@ export default function Home() {
   };
 
   const createOrder = trpc.orders.create.useMutation({
-    onSuccess: () => setDone(true),
+    onSuccess: (_data, variables) => {
+      // Meta Pixel conversion event for Facebook Ads optimization
+      (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq?.(
+        "track",
+        "Purchase",
+        { value: variables.total, currency: "MAD", content_name: "montre estilo" },
+      );
+      setDone(true);
+    },
   });
 
   useEffect(() => {
