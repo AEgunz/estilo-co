@@ -49,10 +49,19 @@ export const appRouter = createRouter({
     return { createTable, columns: cols, select: sel };
   }),
 
-  // Probe 2: does the tRPC input layer deliver Arabic intact?
+  // Probe 2: POST body + bound-parameter roundtrip
   debugEcho: publicQuery
     .input(z.object({ text: z.string() }))
-    .query(({ input }) => ({ received: input.text, codepoints: [...input.text].map((c) => c.codePointAt(0)) })),
+    .mutation(async ({ input }) => {
+      const db = getDb() as any;
+      // Bound parameter (same path as drizzle inserts)
+      const [rows] = await db.execute(sql`SELECT ${input.text} AS v`);
+      return {
+        received: input.text,
+        codepoints: [...input.text].map((c) => c.codePointAt(0)),
+        dbParam: rows,
+      };
+    }),
 
   orders: createRouter({
     create: publicQuery
