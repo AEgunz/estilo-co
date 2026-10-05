@@ -20,12 +20,18 @@ export async function ensureOrdersTable() {
       total INT NOT NULL,
       status ENUM('new','confirmed','shipped','cancelled') NOT NULL DEFAULT 'new',
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )
+    ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   `));
 
   // Widen legacy columns (idempotent) so multi-color orders fit:
   // e.g. "ساعة 1: روز غولد | ساعة 2: ذهبي | ساعة 3: فضي" > 40 chars.
   await getDb().execute(sql.raw(
     "ALTER TABLE orders MODIFY color VARCHAR(255) NOT NULL"
+  ));
+
+  // Convert legacy tables (created with latin1 default) to utf8mb4 so
+  // Arabic text is not stored as "???".
+  await getDb().execute(sql.raw(
+    "ALTER TABLE orders CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
   ));
 }
