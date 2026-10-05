@@ -2,6 +2,8 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createRouter, publicQuery } from "./middleware";
 import { createOrder, listOrders, setOrderStatus, deleteOrder } from "./queries/orders";
+import { getDb } from "./queries/connection";
+import { sql } from "drizzle-orm";
 
 const ADMIN_KEY = process.env.ADMIN_KEY || "estilo2026";
 const TELEGRAM_BOT_TOKEN =
@@ -34,6 +36,16 @@ async function notifyTelegram(text: string) {
 
 export const appRouter = createRouter({
   ping: publicQuery.query(() => ({ ok: true, ts: Date.now(), v: "charset-fix-2" })),
+
+  // TEMPORARY debug endpoint — remove after charset fix is verified
+  debugCharset: publicQuery.query(async () => {
+    const db = getDb() as any;
+    const [createTable] = await db.execute(sql.raw("SHOW CREATE TABLE orders"));
+    const [cols] = await db.execute(sql.raw(
+      "SELECT COLUMN_NAME, CHARACTER_SET_NAME, COLLATION_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME='orders' AND TABLE_SCHEMA=DATABASE()"
+    ));
+    return { createTable, columns: cols };
+  }),
 
   orders: createRouter({
     create: publicQuery
