@@ -44,8 +44,15 @@ export const appRouter = createRouter({
     const [cols] = await db.execute(sql.raw(
       "SELECT COLUMN_NAME, CHARACTER_SET_NAME, COLLATION_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME='orders' AND TABLE_SCHEMA=DATABASE()"
     ));
-    return { createTable, columns: cols };
+    // Probe 1: does the DB connection itself round-trip Arabic?
+    const [sel] = await db.execute(sql.raw("SELECT 'روز غولد' AS v, @@character_set_connection AS conn_charset"));
+    return { createTable, columns: cols, select: sel };
   }),
+
+  // Probe 2: does the tRPC input layer deliver Arabic intact?
+  debugEcho: publicQuery
+    .input(z.object({ text: z.string() }))
+    .query(({ input }) => ({ received: input.text, codepoints: [...input.text].map((c) => c.codePointAt(0)) })),
 
   orders: createRouter({
     create: publicQuery
