@@ -35,7 +35,7 @@ async function notifyTelegram(text: string) {
 }
 
 export const appRouter = createRouter({
-  ping: publicQuery.query(() => ({ ok: true, ts: Date.now(), v: "charset-fix-2" })),
+  ping: publicQuery.query(() => ({ ok: true, ts: Date.now(), v: "charset-fix-3-nolimit" })),
 
   // TEMPORARY debug endpoint — remove after charset fix is verified
   debugCharset: publicQuery.query(async () => {
