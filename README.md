@@ -47,9 +47,9 @@ npm run dev
 
 ```env
 DATABASE_URL=mysql://user:password@host:3306/dbname
-ADMIN_KEY=estilo2026
-TELEGRAM_BOT_TOKEN=8647674350:AAEASVBsD8xxtN0jvEC3t4Hh8cfe7TXm_ts
-TELEGRAM_CHAT_ID=820512914
+ADMIN_KEY=your_admin_key_here
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+TELEGRAM_CHAT_ID=your_chat_id_here
 ```
 
 ---
