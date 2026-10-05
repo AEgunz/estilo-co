@@ -11,19 +11,8 @@ import { ensureOrdersTable } from "./lib/db-init";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
-// TEMP: compress disabled — testing whether it mangles UTF-8 POST bodies
-// app.use(compress());
-// NOTE: bodyLimit disabled — its stream reassembly mangles UTF-8 request
-// bodies (Arabic arrives as "???"). 50MB uploads are not needed anyway.
-// app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
-
-// TEMP raw-body probe: bypasses tRPC entirely
-app.post("/api/debug-raw", async (c) => {
-  const raw = await c.req.raw.text();
-  const parsed = JSON.parse(raw);
-  return c.json({ rawLength: raw.length, rawSnippet: raw.slice(0, 80), parsedText: parsed?.json?.text ?? null });
-});
-
+app.use(compress());
+app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
     endpoint: "/api/trpc",
