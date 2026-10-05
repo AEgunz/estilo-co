@@ -32,6 +32,39 @@ export default function Home() {
   const [itemColors, setItemColors] = useState<string[]>(["روز غولد"]);
   const [done, setDone] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
+  const trackedRef = useRef({ view: false, checkout: false });
+  const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
+
+  // Meta Pixel: ViewContent once the order section becomes visible
+  useEffect(() => {
+    const el = document.getElementById("quickorder");
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (es) => {
+        es.forEach((e) => {
+          if (e.isIntersecting && !trackedRef.current.view) {
+            trackedRef.current.view = true;
+            fbq?.("track", "ViewContent", {
+              content_name: "ساعة الحية",
+              value: 249,
+              currency: "MAD",
+            });
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [fbq]);
+
+  // Meta Pixel: InitiateCheckout once the customer starts the form
+  const trackCheckout = () => {
+    if (trackedRef.current.checkout) return;
+    trackedRef.current.checkout = true;
+    fbq?.("track", "InitiateCheckout", { value: pack.price, currency: "MAD" });
+  };
 
   useEffect(() => {
     setItemColors((prev) => {
@@ -281,7 +314,7 @@ export default function Home() {
               </div>
 
               <label htmlFor="fname">الاسم الكامل *</label>
-              <input id="fname" type="text" placeholder="مثال: سلمى العلوي" required value={name} onChange={(e) => setName(e.target.value)} />
+              <input id="fname" type="text" placeholder="مثال: سلمى العلوي" required value={name} onChange={(e) => setName(e.target.value)} onFocus={trackCheckout} />
 
               <label htmlFor="fphone">رقم الهاتف *</label>
               <input id="fphone" type="tel" placeholder="مثال: 0612345678" required pattern="[0-9+ ]{9,15}" value={phone} onChange={(e) => setPhone(e.target.value)} />
