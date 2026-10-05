@@ -33,7 +33,7 @@ async function notifyTelegram(text: string) {
 }
 
 export const appRouter = createRouter({
-  ping: publicQuery.query(() => ({ ok: true, ts: Date.now() })),
+  ping: publicQuery.query(() => ({ ok: true, ts: Date.now(), v: "charset-fix-2" })),
 
   orders: createRouter({
     create: publicQuery

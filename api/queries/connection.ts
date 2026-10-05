@@ -13,8 +13,13 @@ export function getDb() {
     // Force utf8mb4 so Arabic text (customer names, colors, addresses)
     // is stored and read correctly. Without this, MySQL servers whose
     // default charset is latin1 mangle Arabic into "???".
+    const url = new URL(env.databaseUrl);
     const pool = mysql.createPool({
-      uri: env.databaseUrl,
+      host: url.hostname,
+      port: Number(url.port || 3306),
+      user: decodeURIComponent(url.username),
+      password: decodeURIComponent(url.password),
+      database: url.pathname.replace(/^\//, ""),
       charset: "utf8mb4",
       connectionLimit: 10,
     });
