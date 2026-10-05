@@ -43,7 +43,7 @@ export const appRouter = createRouter({
           phone: z.string().min(9).max(30),
           city: z.string().min(2).max(120),
           address: z.string().min(4).max(255),
-          color: z.string().max(40),
+          color: z.string().max(255),
           qty: z.number().int().min(1).max(3),
           total: z.number().int().positive(),
           chatId: z.string().max(30).optional(),

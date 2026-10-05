@@ -15,11 +15,17 @@ export async function ensureOrdersTable() {
       phone VARCHAR(30) NOT NULL,
       city VARCHAR(120) NOT NULL,
       address VARCHAR(255) NOT NULL,
-      color VARCHAR(40) NOT NULL,
+      color VARCHAR(255) NOT NULL,
       qty INT NOT NULL,
       total INT NOT NULL,
       status ENUM('new','confirmed','shipped','cancelled') NOT NULL DEFAULT 'new',
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
   `));
+
+  // Widen legacy columns (idempotent) so multi-color orders fit:
+  // e.g. "ساعة 1: روز غولد | ساعة 2: ذهبي | ساعة 3: فضي" > 40 chars.
+  await getDb().execute(sql.raw(
+    "ALTER TABLE orders MODIFY color VARCHAR(255) NOT NULL"
+  ));
 }

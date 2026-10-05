@@ -13,7 +13,7 @@ export const orders = mysqlTable("orders", {
   phone: varchar("phone", { length: 30 }).notNull(),
   city: varchar("city", { length: 120 }).notNull(),
   address: varchar("address", { length: 255 }).notNull(),
-  color: varchar("color", { length: 40 }).notNull(),
+  color: varchar("color", { length: 255 }).notNull(),
   qty: int("qty").notNull(),
   total: int("total").notNull(),
   status: mysqlEnum("status", ["new", "confirmed", "shipped", "cancelled"])
