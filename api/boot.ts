@@ -7,6 +7,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
 import { env } from "./lib/env";
+import { ensureOrdersTable } from "./lib/db-init";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
@@ -27,15 +28,23 @@ export default app;
 const isDev = process.env.NODE_ENV === "development";
 
 if (!isDev) {
-  try {
-    serveStaticFiles(app);
+  (async () => {
+    try {
+      await ensureOrdersTable();
+    } catch (err) {
+      console.error("Failed to ensure orders table:", err);
+    }
 
-    const port = parseInt(process.env.PORT || "3000", 10);
-    serve({ fetch: app.fetch, port, hostname: "0.0.0.0" }, (info) => {
-      console.log(`Server running on http://0.0.0.0:${info.port}/`);
-    });
-  } catch (err) {
-    console.error("Failed to start server:", err);
-  }
+    try {
+      serveStaticFiles(app);
+
+      const port = parseInt(process.env.PORT || "3000", 10);
+      serve({ fetch: app.fetch, port, hostname: "0.0.0.0" }, (info) => {
+        console.log(`Server running on http://0.0.0.0:${info.port}/`);
+      });
+    } catch (err) {
+      console.error("Failed to start server:", err);
+    }
+  })();
 }
 

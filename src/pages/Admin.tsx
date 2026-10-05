@@ -34,7 +34,14 @@ export default function Admin() {
     },
   });
 
-  const wrongKey = ordersQuery.isError;
+  const queryError = ordersQuery.error as
+    | { data?: { code?: string }; message?: string }
+    | null;
+  const wrongKey = queryError?.data?.code === "UNAUTHORIZED";
+  const serverError =
+    ordersQuery.isError && !wrongKey
+      ? queryError?.message || "Server error, please try again later."
+      : null;
 
   if (!key || wrongKey) {
     return (
@@ -58,6 +65,9 @@ export default function Admin() {
           />
           {wrongKey && key && (
             <p style={{ color: "#e74c3c", fontSize: 13, margin: "10px 0 0" }}>Wrong password, try again.</p>
+          )}
+          {serverError && (
+            <p style={{ color: "#e74c3c", fontSize: 13, margin: "10px 0 0", wordBreak: "break-word" }}>{serverError}</p>
           )}
           <button
             type="submit"
