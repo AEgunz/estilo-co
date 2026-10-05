@@ -12,7 +12,9 @@ import { ensureOrdersTable } from "./lib/db-init";
 const app = new Hono<{ Bindings: HttpBindings }>();
 
 app.use(compress());
-app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
+// NOTE: bodyLimit disabled — its stream reassembly mangles UTF-8 request
+// bodies (Arabic arrives as "???"). 50MB uploads are not needed anyway.
+// app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
     endpoint: "/api/trpc",
