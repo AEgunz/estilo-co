@@ -200,3 +200,22 @@ footer{padding:36px 24px;display:flex;justify-content:space-between;align-items:
   transition:transform .25s;
 }
 .float-wa:hover{transform:scale(1.1)}
+
+/* ---------- mobile optimizations ---------- */
+body{-webkit-tap-highlight-color:transparent}
+.q-form input,.q-form select{font-size:16px}
+@media(max-width:640px){
+  section{padding:60px 18px}
+  .sec-head{margin-bottom:34px;padding-bottom:14px}
+  .hero .content{padding:0 18px 48px}
+  .cta-row .btn{width:100%;justify-content:center}
+  .q-form{padding:26px 18px}
+  .order{padding:64px 18px}
+  footer{justify-content:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .marquee-track{animation:none}
+  .bubble{animation-duration:.01s}
+  .g-item img{transition:none}
+}

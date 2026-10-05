@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router";
 import Home from "./pages/Home";
-import Admin from "./pages/Admin";
+
+const Admin = lazy(() => import("./pages/Admin"));
 
 export default function App() {
   const { pathname } = useLocation();
@@ -14,7 +15,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin" element={<Suspense fallback={null}><Admin /></Suspense>} />
     </Routes>
   );
 }
