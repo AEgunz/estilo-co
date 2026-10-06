@@ -3,14 +3,15 @@ import { TRPCError } from "@trpc/server";
 import { createRouter, publicQuery } from "./middleware";
 import { createOrder, listOrders, setOrderStatus, deleteOrder } from "./queries/orders";
 
-const ADMIN_KEY = process.env.ADMIN_KEY || "estilo2026";
+const ADMIN_KEY = (process.env.ADMIN_KEY || "estilo2026").trim().replace(/^['"]|['"]$/g, "");
 const TELEGRAM_BOT_TOKEN =
   process.env.TELEGRAM_BOT_TOKEN ||
   "8647674350:AAEASVBsD8xxtN0jvEC3t4Hh8cfe7TXm_ts";
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "820512914";
 
 function assertAdmin(key: string) {
-  if (key !== ADMIN_KEY) {
+  const cleanKey = (key || "").trim().replace(/^['"]|['"]$/g, "");
+  if (cleanKey !== ADMIN_KEY) {
     throw new TRPCError({ code: "UNAUTHORIZED", message: "كلمة السر غالطة" });
   }
 }
