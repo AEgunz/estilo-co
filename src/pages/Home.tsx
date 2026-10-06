@@ -210,9 +210,9 @@ export default function Home() {
             <span className="num">01 / 04</span>
           </div>
           <div className="gallery">
-            <div className="g-item"><img src="/watch-rosegold.webp" alt="روز غولد" width="800" height="1066" loading="lazy" decoding="async" /><span className="g-tag">روز غولد</span></div>
-            <div className="g-item"><img src="/watch-gold.webp" alt="ذهبي" width="800" height="1066" loading="lazy" decoding="async" /><span className="g-tag">ذهبي</span></div>
-            <div className="g-item"><img src="/watch-silver.webp" alt="فضي" width="800" height="1066" loading="lazy" decoding="async" /><span className="g-tag">فضي</span></div>
+            <div className="g-item"><img src="/watch-rosegold-480.webp" srcSet="/watch-rosegold-480.webp 480w, /watch-rosegold.webp 800w" sizes="(max-width: 768px) 50vw, 344px" alt="روز غولد" width="800" height="1066" loading="lazy" decoding="async" /><span className="g-tag">روز غولد</span></div>
+            <div className="g-item"><img src="/watch-gold-480.webp" srcSet="/watch-gold-480.webp 480w, /watch-gold.webp 800w" sizes="(max-width: 768px) 50vw, 344px" alt="ذهبي" width="800" height="1066" loading="lazy" decoding="async" /><span className="g-tag">ذهبي</span></div>
+            <div className="g-item"><img src="/watch-silver-480.webp" srcSet="/watch-silver-480.webp 480w, /watch-silver.webp 800w" sizes="(max-width: 768px) 50vw, 344px" alt="فضي" width="800" height="1066" loading="lazy" decoding="async" /><span className="g-tag">فضي</span></div>
           </div>
         </div>
       </section>
@@ -222,7 +222,9 @@ export default function Home() {
         <div className="wrap" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 20px" }}>
           <div style={{ borderRadius: 12, overflow: "hidden", boxShadow: "0 8px 30px rgba(0,0,0,0.08)" }}>
             <img
-              src="/watch-lifestyle.webp"
+              src="/watch-lifestyle-800.webp"
+              srcSet="/watch-lifestyle-800.webp 800w, /watch-lifestyle.webp 1200w"
+              sizes="(max-width: 1140px) 100vw, 1060px"
               alt="ساعة الحية النسائية - Estilo-Co"
               width="1200"
               height="800"
@@ -269,7 +271,7 @@ export default function Home() {
             <span className="num">03 / 04</span>
           </div>
           <div className="offer">
-            <div className="o-img"><img src="/watch-gold.webp" alt="ساعة الحية الذهبية" width="800" height="1066" loading="lazy" decoding="async" /></div>
+            <div className="o-img"><img src="/watch-gold-480.webp" srcSet="/watch-gold-480.webp 480w, /watch-gold.webp 800w" sizes="(max-width: 768px) 100vw, 536px" alt="ساعة الحية الذهبية" width="800" height="1066" loading="lazy" decoding="async" /></div>
             <div>
               <span className="badge">تخفيض 40% — اليوم فقط</span>
               <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 6 }}>
