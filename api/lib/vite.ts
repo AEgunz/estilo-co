@@ -14,6 +14,7 @@ const MIME_TYPES: Record<string, string> = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
   ".gif": "image/gif",
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon",
@@ -65,7 +66,7 @@ export function serveStaticFiles(app: App) {
   app.notFound((c) => {
     const reqPath = c.req.path;
 
-    if (/\.(js|mjs|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json)$/i.test(reqPath)) {
+    if (/\.(js|mjs|css|png|jpg|jpeg|webp|gif|ico|svg|woff|woff2|ttf|json)$/i.test(reqPath)) {
       return c.text("404 Not Found", 404);
     }
 

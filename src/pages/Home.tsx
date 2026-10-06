@@ -163,10 +163,12 @@ export default function Home() {
       <div className="hero">
         <div className="bg">
           <img
-            src="/watch_design_gold.jpg"
+            src="/watch_design_gold-768.webp"
+            srcSet="/watch_design_gold-768.webp 768w, /watch_design_gold-1024.webp 1024w"
+            sizes="100vw"
             alt="ساعة الحية الذهبية"
             width="1024"
-            height="1024"
+            height="1536"
             fetchPriority="high"
             decoding="async"
           />
