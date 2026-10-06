@@ -45,13 +45,15 @@ export default function Admin() {
 
   if (!key || wrongKey) {
     return (
-      <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#0a0a0a", fontFamily: "system-ui, sans-serif" }}>
+      <div dir="ltr" style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#0a0a0a", fontFamily: "system-ui, sans-serif" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            sessionStorage.setItem("adminKey", input);
-            setKey(input);
+            const trimmed = input.trim();
+            sessionStorage.setItem("adminKey", trimmed);
+            setKey(trimmed);
           }}
+          dir="ltr"
           style={{ background: "#141414", border: "1px solid #2a2a2a", borderRadius: 12, padding: 40, width: "min(380px, 90vw)", textAlign: "center" }}
         >
           <h1 style={{ color: "#fff", fontSize: 22, marginBottom: 6 }}>Orders Dashboard</h1>
@@ -61,7 +63,8 @@ export default function Admin() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Password"
-            style={{ width: "100%", padding: "13px 16px", borderRadius: 8, border: "1px solid #333", background: "#0a0a0a", color: "#fff", fontSize: 15, boxSizing: "border-box" }}
+            dir="ltr"
+            style={{ width: "100%", padding: "13px 16px", borderRadius: 8, border: "1px solid #333", background: "#0a0a0a", color: "#fff", fontSize: 15, boxSizing: "border-box", textAlign: "left", direction: "ltr" }}
           />
           {wrongKey && key && (
             <p style={{ color: "#e74c3c", fontSize: 13, margin: "10px 0 0" }}>Wrong password, try again.</p>
